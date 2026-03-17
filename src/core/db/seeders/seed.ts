@@ -3,7 +3,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DatabaseSeeder } from './database.seeder';
-import { User } from '../entities/user.entity';
+import { User } from '../../../modules/user/entities/user.entity';
 import { Project } from '../entities/project.entity';
 import { Source } from '../entities/source.entity';
 import { Consumer } from '../entities/consumer.entity';

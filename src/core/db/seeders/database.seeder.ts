@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { User } from '../entities/user.entity';
+import * as bcrypt from 'bcrypt';
+import { User } from '../../../modules/user/entities/user.entity';
 import { Project } from '../entities/project.entity';
 import { Source } from '../entities/source.entity';
 import { Consumer } from '../entities/consumer.entity';
@@ -37,10 +38,11 @@ export class DatabaseSeeder {
 
   private async seedUsers(): Promise<User[]> {
     console.log('Seeding users...');
+    const hashedPassword = await bcrypt.hash('admin', 10);
     const usersData = [
       {
         name: 'admin',
-        password: 'admin',
+        password: hashedPassword,
         status: EntityStatus.ACTIVE,
       },
     ];

@@ -8,8 +8,8 @@ import {
   JoinTable,
   Index,
 } from 'typeorm';
-import { Project } from './project.entity';
-import { EntityStatus } from '../enums';
+import { Project } from '../../../core/db/entities/project.entity';
+import { EntityStatus } from '../../../core/db/enums';
 
 @Entity('users')
 @Index('idx_users_status', ['status'])
