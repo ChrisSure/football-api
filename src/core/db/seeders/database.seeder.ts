@@ -57,7 +57,8 @@ export class DatabaseSeeder {
     const projectsData = [
       {
         title: 'xFootball Project',
-        description: 'A comprehensive news aggregation platform for xFootball content',
+        description:
+          'A comprehensive news aggregation platform for xFootball content',
         status: EntityStatus.ACTIVE,
       },
       {
@@ -94,16 +95,16 @@ export class DatabaseSeeder {
         status: EntityStatus.ACTIVE,
       },
       {
-          title: 'BBC',
-          url: 'https://www.bbc.com/sport/football/transfers',
-          key: 'bbc',
-          status: EntityStatus.ACTIVE,
+        title: 'BBC',
+        url: 'https://www.bbc.com/sport/football/transfers',
+        key: 'bbc',
+        status: EntityStatus.ACTIVE,
       },
       {
-          title: 'Talk Sport',
-          url: 'https://talksport.com/football/',
-          key: 'talk',
-          status: EntityStatus.ACTIVE,
+        title: 'Talk Sport',
+        url: 'https://talksport.com/football/',
+        key: 'talk',
+        status: EntityStatus.ACTIVE,
       },
     ];
 
@@ -144,7 +145,13 @@ export class DatabaseSeeder {
     sources: Source[],
   ): Promise<void> {
     console.log('Linking projects to sources...');
-    projects[0].sources = [sources[0], sources[1], sources[2], sources[3], sources[4]];
+    projects[0].sources = [
+      sources[0],
+      sources[1],
+      sources[2],
+      sources[3],
+      sources[4],
+    ];
 
     await this.projectRepository.save(projects);
     console.log('Projects linked to sources');
@@ -161,5 +168,4 @@ export class DatabaseSeeder {
     await this.projectRepository.save(projects);
     console.log('Projects linked to consumers');
   }
-
 }

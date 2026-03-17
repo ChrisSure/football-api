@@ -15,37 +15,46 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
   public async login(loginDto: LoginDto): Promise<LoginResponse> {
-      const user = await this.validateUser(loginDto.name, loginDto.password);
+    const user = await this.validateUser(loginDto.name, loginDto.password);
 
-      if (!user) {
-          throw new UnauthorizedException('Invalid credentials');
-      }
+    if (!user) {
+      throw new UnauthorizedException('Invalid credentials');
+    }
 
-      const token = this.jwtService.generateToken(user.name);
-      return { access_token: token };
+    const token = this.jwtService.generateToken(user.name);
+    return { access_token: token };
   }
 
-  private async validateUser(name: string, password: string): Promise<User | null> {
-      const user = await this.userRepository
-        .createQueryBuilder('user')
-        .addSelect('user.password')
-        .where('user.name = :name', { name })
-        .getOne();
+  private async validateUser(
+    name: string,
+    password: string,
+  ): Promise<User | null> {
+    const user = await this.userRepository
+      .createQueryBuilder('user')
+      .addSelect('user.password')
+      .where('user.name = :name', { name })
+      .getOne();
 
-      if (!user) {
-          return null;
-      }
+    if (!user) {
+      return null;
+    }
 
-      const isPasswordValid = await this.comparePasswords(password, user.password);
+    const isPasswordValid = await this.comparePasswords(
+      password,
+      user.password,
+    );
 
-      if (!isPasswordValid) {
-          return null;
-      }
+    if (!isPasswordValid) {
+      return null;
+    }
 
-      return user;
+    return user;
   }
 
-  private async comparePasswords(plainPassword: string, hashedPassword: string): Promise<boolean> {
+  private async comparePasswords(
+    plainPassword: string,
+    hashedPassword: string,
+  ): Promise<boolean> {
     return bcrypt.compare(plainPassword, hashedPassword);
   }
 }
