@@ -19,11 +19,13 @@ npm install
 ## Configuration
 
 1. **Copy the environment template:**
+
    ```bash
    cp .env.example .env
    ```
 
 2. **Update the `.env` file with your MySQL credentials:**
+
    ```
    DB_HOST=localhost
    DB_PORT=3306
@@ -58,6 +60,7 @@ npm run db:setup
 ```
 
 This will:
+
 1. Create the `xfootball` database if it doesn't exist
 2. Run all migrations to create tables, indexes, and foreign keys
 
@@ -66,6 +69,7 @@ This will:
 If you prefer to run the steps individually:
 
 1. **Create the database:**
+
    ```bash
    npm run db:create
    ```
@@ -76,16 +80,19 @@ If you prefer to run the steps individually:
    ```
 
 ### Revert the last migration:
+
 ```bash
 npm run migration:revert
 ```
 
 ### Generate a new migration (after modifying entities):
+
 ```bash
 npm run migration:generate -- src/db/migrations/MigrationName
 ```
 
 ### Create an empty migration:
+
 ```bash
 npm run migration:create -- src/db/migrations/MigrationName
 ```
@@ -99,6 +106,7 @@ npm run seed
 ```
 
 This will create:
+
 - 5 sample users
 - 3 sample projects
 - 3 sample sources (ESPN, BBC Sport, Goal.com)
@@ -133,6 +141,7 @@ Sources → Articles (one-to-many)
 ### Connection Issues
 
 If you encounter connection errors:
+
 1. Verify MySQL is running: `mysql -u root -p`
 2. Check credentials in `.env` file
 3. Ensure the database user has appropriate permissions
@@ -140,6 +149,7 @@ If you encounter connection errors:
 ### Migration Errors
 
 If migrations fail:
+
 1. Check if the database already exists
 2. Verify database user permissions
 3. Review the migration logs for specific errors
@@ -147,6 +157,7 @@ If migrations fail:
 ### Seeder Errors
 
 If seeding fails:
+
 1. Ensure migrations have been run first
 2. Check database connection
 3. Review console output for specific errors
@@ -176,11 +187,13 @@ Before deploying to production:
 ## Entity Status Enums
 
 Most entities have a status field with these values:
+
 - `new` - Newly created, not yet activated
 - `active` - Currently active and in use
 - `stopped` - Deactivated or archived
 
 Articles have:
+
 - `new` - Draft or unpublished
 - `published` - Published and visible
 
