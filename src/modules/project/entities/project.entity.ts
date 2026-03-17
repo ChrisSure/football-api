@@ -9,11 +9,11 @@ import {
   OneToMany,
   Index,
 } from 'typeorm';
-import { User } from '../../../modules/user/entities/user.entity';
-import { Source } from './source.entity';
-import { Consumer } from './consumer.entity';
-import { Article } from './article.entity';
-import { EntityStatus } from '../enums';
+import { User } from '../../user/entities/user.entity';
+import { Source } from '../../../core/db/entities/source.entity';
+import { Consumer } from '../../../core/db/entities/consumer.entity';
+import { Article } from '../../../core/db/entities/article.entity';
+import { EntityStatus } from '../../../core/db/enums';
 
 @Entity('projects')
 @Index('idx_projects_status', ['status'])

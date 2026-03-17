@@ -8,7 +8,7 @@ import {
   OneToMany,
   Index,
 } from 'typeorm';
-import { Project } from './project.entity';
+import { Project } from '../../../modules/project/entities/project.entity';
 import { Article } from './article.entity';
 import { EntityStatus } from '../enums';
 

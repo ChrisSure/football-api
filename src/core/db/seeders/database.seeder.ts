@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { User } from '../../../modules/user/entities/user.entity';
-import { Project } from '../entities/project.entity';
+import { Project } from '../../../modules/project/entities/project.entity';
 import { Source } from '../entities/source.entity';
 import { Consumer } from '../entities/consumer.entity';
 import { EntityStatus } from '../enums';

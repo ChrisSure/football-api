@@ -8,7 +8,7 @@ import {
   JoinColumn,
   Index,
 } from 'typeorm';
-import { Project } from './project.entity';
+import { Project } from '../../../modules/project/entities/project.entity';
 import { Source } from './source.entity';
 import { ArticleStatus } from '../enums';
 

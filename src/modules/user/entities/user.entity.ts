@@ -8,7 +8,7 @@ import {
   JoinTable,
   Index,
 } from 'typeorm';
-import { Project } from '../../../core/db/entities/project.entity';
+import { Project } from '../../project/entities/project.entity';
 import { EntityStatus } from '../../../core/db/enums';
 
 @Entity('users')
