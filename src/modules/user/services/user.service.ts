@@ -4,9 +4,10 @@ import {
   ConflictException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, In } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { User } from '../entities/user.entity';
+import { Project } from '../../project/entities/project.entity';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
 
@@ -15,14 +16,21 @@ export class UserService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
+    @InjectRepository(Project)
+    private readonly projectRepository: Repository<Project>,
   ) {}
 
   async findAll(): Promise<User[]> {
-    return await this.userRepository.find();
+    return await this.userRepository.find({
+      relations: ['projects'],
+    });
   }
 
   async findOne(id: number): Promise<User> {
-    const user = await this.userRepository.findOne({ where: { id } });
+    const user = await this.userRepository.findOne({
+      where: { id },
+      relations: ['projects'],
+    });
 
     if (!user) {
       throw new NotFoundException(`User with ID ${id} not found`);
@@ -47,11 +55,26 @@ export class UserService {
       password: hashedPassword,
     });
 
+    if (createUserDto.projectIds && createUserDto.projectIds.length > 0) {
+      const projects = await this.projectRepository.findBy({
+        id: In(createUserDto.projectIds),
+      });
+
+      if (projects.length !== createUserDto.projectIds.length) {
+        throw new NotFoundException('One or more projects not found');
+      }
+
+      user.projects = projects;
+    }
+
     return await this.userRepository.save(user);
   }
 
   async update(id: number, updateUserDto: UpdateUserDto): Promise<User> {
-    const user = await this.userRepository.findOne({ where: { id } });
+    const user = await this.userRepository.findOne({
+      where: { id },
+      relations: ['projects'],
+    });
 
     if (!user) {
       throw new NotFoundException(`User with ID ${id} not found`);
@@ -67,12 +90,38 @@ export class UserService {
       }
     }
 
-    Object.assign(user, updateUserDto);
+    if (updateUserDto.projectIds !== undefined) {
+      if (updateUserDto.projectIds.length > 0) {
+        const projects = await this.projectRepository.findBy({
+          id: In(updateUserDto.projectIds),
+        });
+
+        if (projects.length !== updateUserDto.projectIds.length) {
+          throw new NotFoundException('One or more projects not found');
+        }
+
+        user.projects = projects;
+      } else {
+        user.projects = [];
+      }
+    }
+
+    if (updateUserDto.name) {
+      user.name = updateUserDto.name;
+    }
+
+    if (updateUserDto.status) {
+      user.status = updateUserDto.status;
+    }
+
     return await this.userRepository.save(user);
   }
 
   async remove(id: number): Promise<void> {
-    const user = await this.userRepository.findOne({ where: { id } });
+    const user = await this.userRepository.findOne({
+      where: { id },
+      relations: ['projects'],
+    });
 
     if (!user) {
       throw new NotFoundException(`User with ID ${id} not found`);
