@@ -1,0 +1,92 @@
+---
+description: Node.js + NestJS + TypeScript rules
+alwaysApply: true
+---
+# Cursor Rules — Node.js + NestJS + TypeScript rules
+
+## General Principles
+- Use TypeScript strictly (no `any`)
+- Prefer clarity over cleverness
+- Follow existing ESLint and Prettier rules
+- Do not introduce new dependencies without asking
+- Generate code that is easy to read and maintain
+
+## Language & Types
+- Always use explicit types for function parameters and return values
+- Use `unknown` instead of `any` when the type is not known
+- Prefer interfaces or type aliases for objects
+- Avoid type assertions (`as`) unless absolutely necessary
+
+## NestJS Best Practices
+- Use async/await for all asynchronous code
+- Do not use callbacks unless required by a library
+- Always use decorators for controllers, services, and modules
+- Use dependency injection via constructor injection
+- Prefer built-in NestJS exceptions (BadRequestException, NotFoundException, etc.)
+- Use DTOs (Data Transfer Objects) for request/response validation
+- Apply ValidationPipe for automatic validation
+- Use Guards for authentication/authorization
+- Use Interceptors for cross-cutting concerns (logging, transformation)
+- Use Pipes for data transformation and validation
+- Never bypass the NestJS module system
+
+## NestJS Module Structure
+
+Each feature module should follow this structure:
+```
+feature-name/
+  dto/               # Data Transfer Objects
+  entities/          # Database entities or domain models
+  enums/             # Enumerations
+  guards/            # Route guards (optional)
+  interceptors/      # Interceptors (optional)
+  interfaces/        # TypeScript interfaces
+  pipes/             # Custom pipes (optional)
+  feature-name.controller.ts
+  feature-name.service.ts
+  feature-name.module.ts
+```
+
+Example modules:
+- `auth/` - Authentication with guards, strategies, DTOs
+- `users/` - User management with controller, service, entities
+- `articles/` - Article CRUD with DTOs and validation
+- `projects/` - Project management
+- `sources/` - Source data handling
+- `consumers/` - Consumer operations
+
+## File Naming Conventions
+- Controllers: `*.controller.ts`
+- Services: `*.service.ts`
+- Modules: `*.module.ts`
+- DTOs: `*.dto.ts`
+- Entities: `*.entity.ts`
+- Guards: `*.guard.ts`
+- Interceptors: `*.interceptor.ts`
+- Pipes: `*.pipe.ts`
+- Interfaces: `*.interface.ts`
+## Code Style
+- Use named exports (no default exports)
+- Prefer early returns
+- Avoid deeply nested conditionals
+- Keep functions small (one responsibility)
+- Avoid magic numbers and strings (use enums or constants)
+- Use class-validator decorators for DTOs
+- Use class-transformer for object transformation
+- Apply proper decorators (@Injectable(), @Controller(), @Get(), etc.)
+- Always specify HTTP status codes explicitly when needed
+- Use async/await instead of Promises.then()
+
+## Formatting & Linting
+- Assume ESLint and Prettier are enabled
+- Do not disable lint rules unless explicitly asked
+- Generated code must pass linting without warnings
+
+## Testing
+- Do NOT generate unit or integration tests
+- Do NOT suggest testing libraries unless asked
+
+## Communication
+- If requirements are unclear, ask a clarifying question
+- Explain non-obvious decisions briefly
+- Do not over-explain simple code
