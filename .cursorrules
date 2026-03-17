@@ -42,14 +42,13 @@ feature-name/
   interceptors/      # Interceptors (optional)
   interfaces/        # TypeScript interfaces
   pipes/             # Custom pipes (optional)
-  feature-name.controller.ts
-  feature-name.service.ts
+  controllers/       # Controllers
+  services/          # Services
   feature-name.module.ts
 ```
 
 Example modules:
-- `auth/` - Authentication with guards, strategies, DTOs
-- `users/` - User management with controller, service, entities
+- `users/` - Authentication with guards, strategies, DTOs and User management with controller, service, entities
 - `articles/` - Article CRUD with DTOs and validation
 - `projects/` - Project management
 - `sources/` - Source data handling
