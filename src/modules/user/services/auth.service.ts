@@ -26,7 +26,11 @@ export class AuthService {
   }
 
   private async validateUser(name: string, password: string): Promise<User | null> {
-      const user = await this.userRepository.findOne({ where: { name } });
+      const user = await this.userRepository
+        .createQueryBuilder('user')
+        .addSelect('user.password')
+        .where('user.name = :name', { name })
+        .getOne();
 
       if (!user) {
           return null;
