@@ -80,4 +80,17 @@ export class UserService {
 
     await this.userRepository.remove(user);
   }
+
+  async changePassword(id: number, newPassword: string): Promise<User> {
+    const user = await this.userRepository.findOne({ where: { id } });
+
+    if (!user) {
+      throw new NotFoundException(`User with ID ${id} not found`);
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    user.password = hashedPassword;
+
+    return await this.userRepository.save(user);
+  }
 }
