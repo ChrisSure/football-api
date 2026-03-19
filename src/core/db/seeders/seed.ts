@@ -5,9 +5,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DatabaseSeeder } from './database.seeder';
 import { User } from '../../../modules/user/entities/user.entity';
 import { Project } from '../../../modules/project/entities/project.entity';
-import { Source } from '../entities/source.entity';
-import { Consumer } from '../entities/consumer.entity';
-import { Article } from '../entities/article.entity';
+import { Source } from '../../../modules/source/entities/source.entity';
+import { Consumer } from '../../../modules/consumer/entities/consumer.entity';
+import { Article } from '../../../modules/article/entities/article.entity';
 
 @Module({
   imports: [

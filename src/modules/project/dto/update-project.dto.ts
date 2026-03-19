@@ -1,9 +1,16 @@
-import { IsNotEmpty, IsOptional, IsEnum } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsOptional,
+  IsEnum,
+  IsArray,
+  IsInt,
+} from 'class-validator';
 import { EntityStatus } from '../../../core/db/enums';
 
 export class UpdateProjectDto {
+  @IsOptional()
   @IsNotEmpty()
-  title: string;
+  title?: string;
 
   @IsOptional()
   description?: string;
@@ -11,4 +18,14 @@ export class UpdateProjectDto {
   @IsOptional()
   @IsEnum(EntityStatus)
   status?: EntityStatus;
+
+  @IsOptional()
+  @IsArray()
+  @IsInt({ each: true })
+  sourceIds?: number[];
+
+  @IsOptional()
+  @IsArray()
+  @IsInt({ each: true })
+  consumerIds?: number[];
 }

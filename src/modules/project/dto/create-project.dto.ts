@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsOptional } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsArray, IsInt } from 'class-validator';
 
 export class CreateProjectDto {
   @IsNotEmpty()
@@ -6,4 +6,14 @@ export class CreateProjectDto {
 
   @IsOptional()
   description?: string;
+
+  @IsOptional()
+  @IsArray()
+  @IsInt({ each: true })
+  sourceIds?: number[];
+
+  @IsOptional()
+  @IsArray()
+  @IsInt({ each: true })
+  consumerIds?: number[];
 }
