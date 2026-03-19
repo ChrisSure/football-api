@@ -13,7 +13,7 @@ import { ConsumerService } from '../services/consumer.service';
 import { CreateConsumerDto } from '../dto/create-consumer.dto';
 import { UpdateConsumerDto } from '../dto/update-consumer.dto';
 import { JwtAuthGuard } from '../../user/guards/jwt-auth.guard';
-import { Consumer } from '../../../core/db/entities/consumer.entity';
+import { Consumer } from '../entities/consumer.entity';
 
 @Controller('consumers')
 @UseGuards(JwtAuthGuard)

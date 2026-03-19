@@ -8,9 +8,9 @@ import {
   JoinColumn,
   Index,
 } from 'typeorm';
-import { Project } from '../../../modules/project/entities/project.entity';
-import { Source } from './source.entity';
-import { ArticleStatus } from '../enums';
+import { Project } from '../../project/entities/project.entity';
+import { Source } from '../../source/entities/source.entity';
+import { ArticleStatus } from '../../../core/db/enums';
 
 @Entity('articles')
 @Index('idx_articles_status', ['status'])

@@ -13,7 +13,7 @@ import { SourceService } from '../services/source.service';
 import { CreateSourceDto } from '../dto/create-source.dto';
 import { UpdateSourceDto } from '../dto/update-source.dto';
 import { JwtAuthGuard } from '../../user/guards/jwt-auth.guard';
-import { Source } from '../../../core/db/entities/source.entity';
+import { Source } from '../entities/source.entity';
 
 @Controller('sources')
 @UseGuards(JwtAuthGuard)

@@ -5,19 +5,24 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToMany,
+  OneToMany,
   Index,
 } from 'typeorm';
-import { Project } from '../../../modules/project/entities/project.entity';
-import { EntityStatus } from '../enums';
+import { Project } from '../../project/entities/project.entity';
+import { Article } from '../../article/entities/article.entity';
+import { EntityStatus } from '../../../core/db/enums';
 
-@Entity('consumers')
-@Index('idx_consumers_status', ['status'])
-export class Consumer {
+@Entity('sources')
+@Index('idx_sources_status', ['status'])
+export class Source {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column({ type: 'varchar', length: 255 })
   title: string;
+
+  @Column({ type: 'varchar', length: 512 })
+  url: string;
 
   @Column({ type: 'varchar', length: 50 })
   key: string;
@@ -35,6 +40,9 @@ export class Consumer {
   @UpdateDateColumn({ type: 'datetime' })
   updated: Date;
 
-  @ManyToMany(() => Project, (project) => project.consumers)
+  @ManyToMany(() => Project, (project) => project.sources)
   projects: Project[];
+
+  @OneToMany(() => Article, (article) => article.source)
+  articles: Article[];
 }

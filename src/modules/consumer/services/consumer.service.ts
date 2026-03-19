@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Consumer } from '../../../core/db/entities/consumer.entity';
+import { Consumer } from '../entities/consumer.entity';
 import { CreateConsumerDto } from '../dto/create-consumer.dto';
 import { UpdateConsumerDto } from '../dto/update-consumer.dto';
 

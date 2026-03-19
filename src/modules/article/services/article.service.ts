@@ -5,9 +5,9 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Article } from '../../../core/db/entities/article.entity';
+import { Article } from '../entities/article.entity';
 import { Project } from '../../project/entities/project.entity';
-import { Source } from '../../../core/db/entities/source.entity';
+import { Source } from '../../source/entities/source.entity';
 import { CreateArticleDto } from '../dto/create-article.dto';
 import { UpdateArticleDto } from '../dto/update-article.dto';
 

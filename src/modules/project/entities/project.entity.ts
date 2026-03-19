@@ -10,9 +10,9 @@ import {
   Index,
 } from 'typeorm';
 import { User } from '../../user/entities/user.entity';
-import { Source } from '../../../core/db/entities/source.entity';
-import { Consumer } from '../../../core/db/entities/consumer.entity';
-import { Article } from '../../../core/db/entities/article.entity';
+import { Source } from '../../source/entities/source.entity';
+import { Consumer } from '../../consumer/entities/consumer.entity';
+import { Article } from '../../article/entities/article.entity';
 import { EntityStatus } from '../../../core/db/enums';
 
 @Entity('projects')

@@ -13,7 +13,7 @@ import { ArticleService } from '../services/article.service';
 import { CreateArticleDto } from '../dto/create-article.dto';
 import { UpdateArticleDto } from '../dto/update-article.dto';
 import { JwtAuthGuard } from '../../user/guards/jwt-auth.guard';
-import { Article } from '../../../core/db/entities/article.entity';
+import { Article } from '../entities/article.entity';
 
 @Controller('articles')
 @UseGuards(JwtAuthGuard)
