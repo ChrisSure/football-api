@@ -8,9 +8,9 @@ import {
   OneToMany,
   Index,
 } from 'typeorm';
-import { Project } from './project.entity';
-import { Article } from './article.entity';
-import { EntityStatus } from '../enums';
+import { Project } from '../../project/entities/project.entity';
+import { Article } from '../../article/entities/article.entity';
+import { EntityStatus } from '../../../core/db/enums';
 
 @Entity('sources')
 @Index('idx_sources_status', ['status'])

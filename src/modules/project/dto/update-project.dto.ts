@@ -1,15 +1,19 @@
 import {
+  IsNotEmpty,
   IsOptional,
   IsEnum,
-  IsNotEmpty,
   IsArray,
   IsInt,
 } from 'class-validator';
 import { EntityStatus } from '../../../core/db/enums';
 
-export class UpdateUserDto {
+export class UpdateProjectDto {
+  @IsOptional()
   @IsNotEmpty()
-  name: string;
+  title?: string;
+
+  @IsOptional()
+  description?: string;
 
   @IsOptional()
   @IsEnum(EntityStatus)
@@ -18,5 +22,10 @@ export class UpdateUserDto {
   @IsOptional()
   @IsArray()
   @IsInt({ each: true })
-  projectIds?: number[];
+  sourceIds?: number[];
+
+  @IsOptional()
+  @IsArray()
+  @IsInt({ each: true })
+  consumerIds?: number[];
 }

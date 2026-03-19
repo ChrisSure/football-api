@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import ms from 'ms';
 import { User } from './entities/user.entity';
+import { Project } from '../project/entities/project.entity';
 import { AuthController } from './controllers/auth.controller';
 import { UserController } from './controllers/user.controller';
 import { AuthService } from './services/auth.service';
@@ -14,7 +15,7 @@ import { JwtStrategy } from './strategies/jwt.strategy';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([User, Project]),
     PassportModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],

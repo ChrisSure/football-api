@@ -7,8 +7,8 @@ import {
   ManyToMany,
   Index,
 } from 'typeorm';
-import { Project } from './project.entity';
-import { EntityStatus } from '../enums';
+import { Project } from '../../project/entities/project.entity';
+import { EntityStatus } from '../../../core/db/enums';
 
 @Entity('consumers')
 @Index('idx_consumers_status', ['status'])
