@@ -21,7 +21,7 @@ export class AuthService {
       throw new UnauthorizedException('Invalid credentials');
     }
 
-    const token = this.jwtService.generateToken(user.name);
+    const token = this.jwtService.generateToken(user.name, user.id);
     return { access_token: token };
   }
 
