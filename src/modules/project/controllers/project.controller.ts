@@ -20,6 +20,8 @@ import { CreateProjectDto } from '../dto/create-project.dto';
 import { UpdateProjectDto } from '../dto/update-project.dto';
 import { JwtAuthGuard } from '../../user/guards/jwt-auth.guard';
 import { Project } from '../entities/project.entity';
+import { Roles } from '../../user/decorators/roles.decorator';
+import { UserRole } from '../../../core/db/enums';
 
 @ApiTags('Projects')
 @ApiBearerAuth('JWT-auth')
@@ -29,6 +31,7 @@ export class ProjectController {
   constructor(private readonly projectService: ProjectService) {}
 
   @Get()
+  @Roles(UserRole.ADMIN)
   @ApiOperation({ summary: 'Get all projects with sources and consumers' })
   @ApiResponse({ status: 200, description: 'List of projects' })
   async findAll(): Promise<Project[]> {
@@ -44,6 +47,7 @@ export class ProjectController {
   }
 
   @Post()
+  @Roles(UserRole.ADMIN)
   @ApiOperation({ summary: 'Create new project with sources and consumers' })
   @ApiResponse({ status: 201, description: 'Project created' })
   @ApiResponse({
@@ -55,6 +59,7 @@ export class ProjectController {
   }
 
   @Patch(':id')
+  @Roles(UserRole.ADMIN)
   @ApiOperation({ summary: 'Update project and its relationships' })
   @ApiResponse({ status: 200, description: 'Project updated' })
   @ApiResponse({ status: 404, description: 'Project not found' })
@@ -66,6 +71,7 @@ export class ProjectController {
   }
 
   @Delete(':id')
+  @Roles(UserRole.ADMIN)
   @ApiOperation({ summary: 'Delete project and relationships' })
   @ApiResponse({ status: 200, description: 'Project deleted' })
   @ApiResponse({ status: 404, description: 'Project not found' })

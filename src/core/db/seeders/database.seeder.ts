@@ -6,7 +6,7 @@ import { User } from '../../../modules/user/entities/user.entity';
 import { Project } from '../../../modules/project/entities/project.entity';
 import { Source } from '../../../modules/source/entities/source.entity';
 import { Consumer } from '../../../modules/consumer/entities/consumer.entity';
-import { EntityStatus } from '../enums';
+import { EntityStatus, UserRole } from '../enums';
 
 @Injectable()
 export class DatabaseSeeder {
@@ -39,11 +39,19 @@ export class DatabaseSeeder {
   private async seedUsers(): Promise<User[]> {
     console.log('Seeding users...');
     const hashedPassword = await bcrypt.hash('admin', 10);
+    const hashedModeratorPassword = await bcrypt.hash('moderator', 10);
     const usersData = [
       {
         name: 'admin',
         password: hashedPassword,
         status: EntityStatus.ACTIVE,
+        role: UserRole.ADMIN,
+      },
+      {
+        name: 'moderator',
+        password: hashedModeratorPassword,
+        status: EntityStatus.ACTIVE,
+        role: UserRole.MODERATOR,
       },
     ];
 

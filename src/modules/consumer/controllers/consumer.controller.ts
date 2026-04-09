@@ -19,12 +19,15 @@ import { ConsumerService } from '../services/consumer.service';
 import { CreateConsumerDto } from '../dto/create-consumer.dto';
 import { UpdateConsumerDto } from '../dto/update-consumer.dto';
 import { JwtAuthGuard } from '../../user/guards/jwt-auth.guard';
+import { RolesGuard } from '../../user/guards/roles.guard';
+import { Roles } from '../../user/decorators/roles.decorator';
+import { UserRole } from '../../../core/db/enums';
 import { Consumer } from '../entities/consumer.entity';
 
 @ApiTags('Consumers')
 @ApiBearerAuth('JWT-auth')
 @Controller('consumers')
-@UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 export class ConsumerController {
   constructor(private readonly consumerService: ConsumerService) {}
 
@@ -44,6 +47,7 @@ export class ConsumerController {
   }
 
   @Post()
+  @Roles(UserRole.ADMIN)
   @ApiOperation({ summary: 'Create new consumer' })
   @ApiResponse({ status: 201, description: 'Consumer created' })
   @ApiResponse({
@@ -57,6 +61,7 @@ export class ConsumerController {
   }
 
   @Patch(':id')
+  @Roles(UserRole.ADMIN)
   @ApiOperation({ summary: 'Update consumer' })
   @ApiResponse({ status: 200, description: 'Consumer updated' })
   @ApiResponse({ status: 404, description: 'Consumer not found' })
@@ -68,6 +73,7 @@ export class ConsumerController {
   }
 
   @Delete(':id')
+  @Roles(UserRole.ADMIN)
   @ApiOperation({ summary: 'Delete consumer' })
   @ApiResponse({ status: 200, description: 'Consumer deleted' })
   @ApiResponse({ status: 404, description: 'Consumer not found' })

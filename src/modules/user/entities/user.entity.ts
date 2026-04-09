@@ -9,7 +9,7 @@ import {
   Index,
 } from 'typeorm';
 import { Project } from '../../project/entities/project.entity';
-import { EntityStatus } from '../../../core/db/enums';
+import { EntityStatus, UserRole } from '../../../core/db/enums';
 
 @Entity('users')
 @Index('idx_users_status', ['status'])
@@ -29,6 +29,13 @@ export class User {
     default: EntityStatus.NEW,
   })
   status: EntityStatus;
+
+  @Column({
+    type: 'enum',
+    enum: UserRole,
+    default: UserRole.MODERATOR,
+  })
+  role: UserRole;
 
   @CreateDateColumn({ type: 'datetime' })
   created: Date;
