@@ -11,6 +11,7 @@ import { Source } from '../../source/entities/source.entity';
 import { Consumer } from '../../consumer/entities/consumer.entity';
 import { CreateProjectDto } from '../dto/create-project.dto';
 import { UpdateProjectDto } from '../dto/update-project.dto';
+import { EntityStatus } from '../../../core/db/enums';
 
 @Injectable()
 export class ProjectService {
@@ -25,6 +26,13 @@ export class ProjectService {
 
   async findAll(): Promise<Project[]> {
     return await this.projectRepository.find({
+      relations: ['sources', 'consumers'],
+    });
+  }
+
+  async findAllActive(): Promise<Project[]> {
+    return await this.projectRepository.find({
+      where: { status: EntityStatus.ACTIVE },
       relations: ['sources', 'consumers'],
     });
   }

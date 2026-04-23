@@ -38,6 +38,14 @@ export class ProjectController {
     return this.projectService.findAll();
   }
 
+  @Get('active')
+  @Roles(UserRole.ADMIN)
+  @ApiOperation({ summary: 'Get all active projects with sources and consumers' })
+  @ApiResponse({ status: 200, description: 'List of active projects' })
+  async findAllActive(): Promise<Project[]> {
+    return this.projectService.findAllActive();
+  }
+
   @Get(':id')
   @ApiOperation({ summary: 'Get project by ID with sources and consumers' })
   @ApiResponse({ status: 200, description: 'Project found' })

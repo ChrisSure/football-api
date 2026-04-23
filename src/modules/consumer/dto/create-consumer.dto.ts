@@ -1,5 +1,6 @@
-import { IsNotEmpty } from 'class-validator';
+import {IsEnum, IsNotEmpty} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import {EntityStatus} from "../../../core/db/enums";
 
 export class CreateConsumerDto {
   @ApiProperty({
@@ -15,4 +16,13 @@ export class CreateConsumerDto {
   })
   @IsNotEmpty()
   key: string;
+
+  @ApiProperty({
+    description: 'Consumer status',
+    enum: EntityStatus,
+    example: EntityStatus.NEW,
+    required: true,
+  })
+  @IsEnum(EntityStatus)
+  status: EntityStatus;
 }

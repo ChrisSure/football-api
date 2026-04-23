@@ -6,7 +6,7 @@ import {
   IsInt,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { EntityStatus } from '../../../core/db/enums';
+import {EntityStatus, UserRole} from '../../../core/db/enums';
 
 export class UpdateUserDto {
   @ApiProperty({
@@ -36,4 +36,13 @@ export class UpdateUserDto {
   @IsArray()
   @IsInt({ each: true })
   projectIds?: number[];
+
+  @ApiProperty({
+    description: 'User role',
+    enum: UserRole,
+    example: UserRole.MODERATOR,
+    required: true,
+  })
+  @IsEnum(UserRole)
+  role: UserRole;
 }
