@@ -61,6 +61,7 @@ export class ProjectService {
     const project = this.projectRepository.create({
       title: createProjectDto.title,
       description: createProjectDto.description,
+      status: createProjectDto.status,
       sources,
       consumers,
     });
