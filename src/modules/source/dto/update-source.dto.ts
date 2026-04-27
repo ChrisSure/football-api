@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsOptional, IsEnum } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsEnum, IsNumber } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { EntityStatus } from '../../../core/db/enums';
 
@@ -39,4 +39,13 @@ export class UpdateSourceDto {
   @IsOptional()
   @IsEnum(EntityStatus)
   status?: EntityStatus;
+
+  @ApiProperty({
+    description: 'Project ID this source belongs to',
+    example: 1,
+    required: false,
+  })
+  @IsOptional()
+  @IsNumber()
+  projectId?: number;
 }

@@ -26,11 +26,10 @@ export class DatabaseSeeder {
 
     const users = await this.seedUsers();
     const projects = await this.seedProjects();
-    const sources = await this.seedSources();
+    const sources = await this.seedSources(projects);
     const consumers = await this.seedConsumers();
 
     await this.linkUsersToProjects(users, projects);
-    await this.linkProjectsToSources(projects, sources);
     await this.linkProjectsToConsumers(projects, consumers);
 
     console.log('Database seeding completed successfully!');
@@ -81,7 +80,7 @@ export class DatabaseSeeder {
     return projects;
   }
 
-  private async seedSources(): Promise<Source[]> {
+  private async seedSources(projects: Project[]): Promise<Source[]> {
     console.log('Seeding sources...');
     const sourcesData = [
       {
@@ -89,30 +88,35 @@ export class DatabaseSeeder {
         url: 'https://football.ua/',
         key: 'football',
         status: EntityStatus.ACTIVE,
+        project: projects[0],
       },
       {
         title: 'Tribal Football',
         url: 'https://www.tribalfootball.com/',
         key: 'tribal',
         status: EntityStatus.ACTIVE,
+        project: projects[0],
       },
       {
         title: 'Goal',
         url: 'https://www.goal.com/en/news',
         key: 'goal',
         status: EntityStatus.ACTIVE,
+        project: projects[0],
       },
       {
         title: 'BBC',
         url: 'https://www.bbc.com/sport/football/transfers',
         key: 'bbc',
         status: EntityStatus.ACTIVE,
+        project: projects[0],
       },
       {
         title: 'Talk Sport',
         url: 'https://talksport.com/football/',
         key: 'talk',
         status: EntityStatus.ACTIVE,
+        project: projects[0],
       },
     ];
 
@@ -146,23 +150,6 @@ export class DatabaseSeeder {
 
     await this.projectRepository.save(projects);
     console.log('Users linked to projects');
-  }
-
-  private async linkProjectsToSources(
-    projects: Project[],
-    sources: Source[],
-  ): Promise<void> {
-    console.log('Linking projects to sources...');
-    projects[0].sources = [
-      sources[0],
-      sources[1],
-      sources[2],
-      sources[3],
-      sources[4],
-    ];
-
-    await this.projectRepository.save(projects);
-    console.log('Projects linked to sources');
   }
 
   private async linkProjectsToConsumers(

@@ -28,17 +28,6 @@ export class CreateProjectDto {
   status: EntityStatus;
 
   @ApiProperty({
-    description: 'Array of source IDs to associate with project',
-    example: [1, 2, 3],
-    required: false,
-    type: [Number],
-  })
-  @IsOptional()
-  @IsArray()
-  @IsInt({ each: true })
-  sourceIds?: number[];
-
-  @ApiProperty({
     description: 'Array of consumer IDs to associate with project',
     example: [1, 2],
     required: false,

@@ -37,17 +37,6 @@ export class UpdateProjectDto {
   status?: EntityStatus;
 
   @ApiProperty({
-    description: 'Array of source IDs (replaces existing sources)',
-    example: [2, 3, 4],
-    required: false,
-    type: [Number],
-  })
-  @IsOptional()
-  @IsArray()
-  @IsInt({ each: true })
-  sourceIds?: number[];
-
-  @ApiProperty({
     description: 'Array of consumer IDs (replaces existing consumers)',
     example: [1],
     required: false,

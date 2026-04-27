@@ -1,5 +1,6 @@
-import { IsNotEmpty } from 'class-validator';
+import {IsEnum, IsNotEmpty, IsNumber, IsOptional} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import {EntityStatus} from "../../../core/db/enums";
 
 export class CreateSourceDto {
   @ApiProperty({
@@ -22,4 +23,22 @@ export class CreateSourceDto {
   })
   @IsNotEmpty()
   key: string;
+
+  @ApiProperty({
+    description: 'Source status',
+    enum: EntityStatus,
+    example: EntityStatus.ACTIVE,
+    required: false,
+  })
+  @IsOptional()
+  @IsEnum(EntityStatus)
+  status?: EntityStatus;
+
+  @ApiProperty({
+    description: 'Project ID this source belongs to',
+    example: 1,
+  })
+  @IsNotEmpty()
+  @IsNumber()
+  projectId: number;
 }
