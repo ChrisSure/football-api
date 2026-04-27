@@ -1,6 +1,12 @@
-import {IsNotEmpty, IsOptional, IsArray, IsInt, IsEnum} from 'class-validator';
+import {
+  IsNotEmpty,
+  IsOptional,
+  IsArray,
+  IsInt,
+  IsEnum,
+} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import {EntityStatus, UserRole} from "../../../core/db/enums";
+import { EntityStatus, UserRole } from '../../../core/db/enums';
 
 export class CreateUserDto {
   @ApiProperty({

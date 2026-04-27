@@ -26,7 +26,7 @@ export class DatabaseSeeder {
 
     const users = await this.seedUsers();
     const projects = await this.seedProjects();
-    const sources = await this.seedSources(projects);
+    await this.seedSources(projects);
     const consumers = await this.seedConsumers();
 
     await this.linkUsersToProjects(users, projects);

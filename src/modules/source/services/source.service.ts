@@ -24,9 +24,9 @@ export class SourceService {
   }
 
   async findOne(id: number): Promise<Source> {
-    const source = await this.sourceRepository.findOne({ 
+    const source = await this.sourceRepository.findOne({
       where: { id },
-      relations: ['project']
+      relations: ['project'],
     });
 
     if (!source) {
@@ -50,7 +50,9 @@ export class SourceService {
     });
 
     if (!project) {
-      throw new NotFoundException(`Project with ID ${createSourceDto.projectId} not found`);
+      throw new NotFoundException(
+        `Project with ID ${createSourceDto.projectId} not found`,
+      );
     }
 
     const source = this.sourceRepository.create({
@@ -62,9 +64,9 @@ export class SourceService {
   }
 
   async update(id: number, updateSourceDto: UpdateSourceDto): Promise<Source> {
-    const source = await this.sourceRepository.findOne({ 
+    const source = await this.sourceRepository.findOne({
       where: { id },
-      relations: ['project']
+      relations: ['project'],
     });
 
     if (!source) {
@@ -81,13 +83,18 @@ export class SourceService {
       }
     }
 
-    if (updateSourceDto.projectId && updateSourceDto.projectId !== source.projectId) {
+    if (
+      updateSourceDto.projectId &&
+      updateSourceDto.projectId !== source.projectId
+    ) {
       const project = await this.projectRepository.findOne({
         where: { id: updateSourceDto.projectId },
       });
 
       if (!project) {
-        throw new NotFoundException(`Project with ID ${updateSourceDto.projectId} not found`);
+        throw new NotFoundException(
+          `Project with ID ${updateSourceDto.projectId} not found`,
+        );
       }
       source.project = project;
     }

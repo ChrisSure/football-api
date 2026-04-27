@@ -44,7 +44,9 @@ export class Source {
   @UpdateDateColumn({ type: 'datetime' })
   updated: Date;
 
-  @ManyToOne(() => Project, (project) => project.sources, { onDelete: 'CASCADE' })
+  @ManyToOne(() => Project, (project) => project.sources, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'project_id' })
   project: Project;
 

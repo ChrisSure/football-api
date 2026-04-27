@@ -116,9 +116,9 @@ export class UserService {
       user.status = updateUserDto.status;
     }
 
-      if (updateUserDto.role) {
-          user.role = updateUserDto.role;
-      }
+    if (updateUserDto.role) {
+      user.role = updateUserDto.role;
+    }
 
     return await this.userRepository.save(user);
   }

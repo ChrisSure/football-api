@@ -1,6 +1,6 @@
-import {IsEnum, IsNotEmpty, IsNumber, IsOptional} from 'class-validator';
+import { IsEnum, IsNotEmpty, IsNumber, IsOptional } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import {EntityStatus} from "../../../core/db/enums";
+import { EntityStatus } from '../../../core/db/enums';
 
 export class CreateSourceDto {
   @ApiProperty({
