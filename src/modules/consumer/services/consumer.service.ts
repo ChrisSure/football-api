@@ -8,6 +8,7 @@ import { Repository } from 'typeorm';
 import { Consumer } from '../entities/consumer.entity';
 import { CreateConsumerDto } from '../dto/create-consumer.dto';
 import { UpdateConsumerDto } from '../dto/update-consumer.dto';
+import { EntityStatus } from '../../../core/db/enums';
 
 @Injectable()
 export class ConsumerService {
@@ -18,6 +19,12 @@ export class ConsumerService {
 
   async findAll(): Promise<Consumer[]> {
     return await this.consumerRepository.find();
+  }
+
+  async findAllActive(): Promise<Consumer[]> {
+    return await this.consumerRepository.find({
+      where: { status: EntityStatus.ACTIVE },
+    });
   }
 
   async findOne(id: number): Promise<Consumer> {

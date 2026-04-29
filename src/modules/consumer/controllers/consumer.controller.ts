@@ -38,6 +38,15 @@ export class ConsumerController {
     return this.consumerService.findAll();
   }
 
+  @Get('active')
+  @ApiOperation({
+    summary: 'Get all active consumers',
+  })
+  @ApiResponse({ status: 200, description: 'List of active consumers' })
+  async findAllActive(): Promise<Consumer[]> {
+    return this.consumerService.findAllActive();
+  }
+
   @Get(':id')
   @ApiOperation({ summary: 'Get consumer by ID' })
   @ApiResponse({ status: 200, description: 'Consumer found' })
