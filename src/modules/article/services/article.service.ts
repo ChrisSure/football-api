@@ -28,6 +28,21 @@ export class ArticleService {
     });
   }
 
+  async findByProjectId(projectId: number): Promise<Article[]> {
+    const project = await this.projectRepository.findOne({
+      where: { id: projectId },
+    });
+
+    if (!project) {
+      throw new NotFoundException(`Project with ID ${projectId} not found`);
+    }
+
+    return await this.articleRepository.find({
+      where: { project: { id: projectId } },
+      relations: ['project', 'source'],
+    });
+  }
+
   async findOne(id: number): Promise<Article> {
     const article = await this.articleRepository.findOne({
       where: { id },

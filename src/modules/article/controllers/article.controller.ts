@@ -35,6 +35,16 @@ export class ArticleController {
     return this.articleService.findAll();
   }
 
+  @Get('project/:id')
+  @ApiOperation({ summary: 'Get articles by project ID' })
+  @ApiResponse({ status: 200, description: 'List of articles for the project' })
+  @ApiResponse({ status: 404, description: 'Project not found' })
+  async findByProjectId(
+    @Param('id', ParseIntPipe) projectId: number,
+  ): Promise<Article[]> {
+    return this.articleService.findByProjectId(projectId);
+  }
+
   @Get(':id')
   @ApiOperation({ summary: 'Get article by ID with relations' })
   @ApiResponse({ status: 200, description: 'Article found' })
