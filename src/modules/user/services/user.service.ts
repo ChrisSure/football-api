@@ -53,6 +53,8 @@ export class UserService {
     const user = this.userRepository.create({
       name: createUserDto.name,
       password: hashedPassword,
+      status: createUserDto.status,
+      role: createUserDto.role,
     });
 
     if (createUserDto.projectIds && createUserDto.projectIds.length > 0) {
@@ -112,6 +114,10 @@ export class UserService {
 
     if (updateUserDto.status) {
       user.status = updateUserDto.status;
+    }
+
+    if (updateUserDto.role) {
+      user.role = updateUserDto.role;
     }
 
     return await this.userRepository.save(user);

@@ -43,12 +43,7 @@ export class Project {
   @ManyToMany(() => User, (user) => user.projects)
   users: User[];
 
-  @ManyToMany(() => Source, (source) => source.projects)
-  @JoinTable({
-    name: 'projects_sources',
-    joinColumn: { name: 'project_id', referencedColumnName: 'id' },
-    inverseJoinColumn: { name: 'source_id', referencedColumnName: 'id' },
-  })
+  @OneToMany(() => Source, (source) => source.project, { cascade: true })
   sources: Source[];
 
   @ManyToMany(() => Consumer, (consumer) => consumer.projects)

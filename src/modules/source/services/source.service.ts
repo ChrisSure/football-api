@@ -6,6 +6,7 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Source } from '../entities/source.entity';
+import { Project } from '../../project/entities/project.entity';
 import { CreateSourceDto } from '../dto/create-source.dto';
 import { UpdateSourceDto } from '../dto/update-source.dto';
 
@@ -14,14 +15,19 @@ export class SourceService {
   constructor(
     @InjectRepository(Source)
     private readonly sourceRepository: Repository<Source>,
+    @InjectRepository(Project)
+    private readonly projectRepository: Repository<Project>,
   ) {}
 
   async findAll(): Promise<Source[]> {
-    return await this.sourceRepository.find();
+    return await this.sourceRepository.find({ relations: ['project'] });
   }
 
   async findOne(id: number): Promise<Source> {
-    const source = await this.sourceRepository.findOne({ where: { id } });
+    const source = await this.sourceRepository.findOne({
+      where: { id },
+      relations: ['project'],
+    });
 
     if (!source) {
       throw new NotFoundException(`Source with ID ${id} not found`);
@@ -39,13 +45,29 @@ export class SourceService {
       throw new ConflictException('Source with this key already exists');
     }
 
-    const source = this.sourceRepository.create(createSourceDto);
+    const project = await this.projectRepository.findOne({
+      where: { id: createSourceDto.projectId },
+    });
+
+    if (!project) {
+      throw new NotFoundException(
+        `Project with ID ${createSourceDto.projectId} not found`,
+      );
+    }
+
+    const source = this.sourceRepository.create({
+      ...createSourceDto,
+      project,
+    });
 
     return await this.sourceRepository.save(source);
   }
 
   async update(id: number, updateSourceDto: UpdateSourceDto): Promise<Source> {
-    const source = await this.sourceRepository.findOne({ where: { id } });
+    const source = await this.sourceRepository.findOne({
+      where: { id },
+      relations: ['project'],
+    });
 
     if (!source) {
       throw new NotFoundException(`Source with ID ${id} not found`);
@@ -59,6 +81,22 @@ export class SourceService {
       if (existingSource) {
         throw new ConflictException('Source with this key already exists');
       }
+    }
+
+    if (
+      updateSourceDto.projectId &&
+      updateSourceDto.projectId !== source.projectId
+    ) {
+      const project = await this.projectRepository.findOne({
+        where: { id: updateSourceDto.projectId },
+      });
+
+      if (!project) {
+        throw new NotFoundException(
+          `Project with ID ${updateSourceDto.projectId} not found`,
+        );
+      }
+      source.project = project;
     }
 
     Object.assign(source, updateSourceDto);

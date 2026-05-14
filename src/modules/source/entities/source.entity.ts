@@ -4,7 +4,8 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  ManyToMany,
+  ManyToOne,
+  JoinColumn,
   OneToMany,
   Index,
 } from 'typeorm';
@@ -34,14 +35,20 @@ export class Source {
   })
   status: EntityStatus;
 
+  @Column({ name: 'project_id' })
+  projectId: number;
+
   @CreateDateColumn({ type: 'datetime' })
   created: Date;
 
   @UpdateDateColumn({ type: 'datetime' })
   updated: Date;
 
-  @ManyToMany(() => Project, (project) => project.sources)
-  projects: Project[];
+  @ManyToOne(() => Project, (project) => project.sources, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'project_id' })
+  project: Project;
 
   @OneToMany(() => Article, (article) => article.source)
   articles: Article[];
