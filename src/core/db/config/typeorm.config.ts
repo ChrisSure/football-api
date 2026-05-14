@@ -10,7 +10,7 @@ export const AppDataSource = new DataSource({
   username: process.env.DB_USERNAME || 'teddy',
   password: process.env.DB_PASSWORD || '',
   database: process.env.DB_DATABASE || 'xfootball',
-    entities: ['dist/**/*.entity.js'],
+  entities: ['dist/**/*.entity.js'],
   migrations: ['src/core/db/migrations/*.ts'],
   synchronize: false,
   logging: process.env.DB_LOGGING === 'true',

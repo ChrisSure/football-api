@@ -7,10 +7,10 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.enableCors({
-      origin: [
-        'http://localhost:5173',
-        'https://football-admin-production.up.railway.app',
-      ],
+    origin: [
+      'http://localhost:5173',
+      'https://football-admin-production.up.railway.app',
+    ],
     credentials: true,
   });
 
@@ -42,7 +42,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('/', app, document);
 
-    const port = process.env.PORT || 3000;
-    await app.listen(port, '0.0.0.0');
+  const port = process.env.PORT || 3000;
+  await app.listen(port, '0.0.0.0');
 }
 void bootstrap();
